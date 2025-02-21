@@ -1,6 +1,6 @@
 ﻿namespace LibraryTechFlow.Communication.Responses
 {
-    public class ReponseErrorMessagesJson
+    public class RepsonseErrorMessagesJson
     {
         public IEnumerable<string> Errors { get; set; } = [];
 

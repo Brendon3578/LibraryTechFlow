@@ -3,7 +3,7 @@ using LibraryTechFlow.Communication.Requests;
 
 namespace LibraryTechFlow.Api.UseCases.Users.Register
 {
-    public class RegisterUserValidator : AbstractValidator<UserRequestJson>
+    public class RegisterUserValidator : AbstractValidator<RequestUserJson>
     {
         public RegisterUserValidator()
         {

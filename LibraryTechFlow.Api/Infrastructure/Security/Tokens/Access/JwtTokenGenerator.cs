@@ -8,6 +8,13 @@ namespace LibraryTechFlow.Api.Infrastructure.Security.Tokens.Access
 {
     public class JwtTokenGenerator
     {
+        private readonly IConfiguration _configuration;
+
+        public JwtTokenGenerator(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
         public string Generate(User user)
         {
             var claims = new List<Claim>
@@ -33,7 +40,9 @@ namespace LibraryTechFlow.Api.Infrastructure.Security.Tokens.Access
 
         private SymmetricSecurityKey SecurityKey()
         {
-            var signingKey = "TLLlKI2aUB6jMNxPl8oRlc4A8gq1kfkh";
+            var signingKey = _configuration["JwtSettings:Secret"]
+                ?? throw new ArgumentNullException("JwtSettings:Secret is not defined in appsettings.json");
+
             var symmetricKey = Encoding.UTF8.GetBytes(signingKey);
 
             return new SymmetricSecurityKey(symmetricKey);

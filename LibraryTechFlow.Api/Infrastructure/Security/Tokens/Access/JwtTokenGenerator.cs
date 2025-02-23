@@ -33,7 +33,7 @@ namespace LibraryTechFlow.Api.Infrastructure.Security.Tokens.Access
 
         private SymmetricSecurityKey SecurityKey()
         {
-            var signingKey = "pxEU1gD8MnPFIM20CINYGvGyK6undjYZ";
+            var signingKey = "TLLlKI2aUB6jMNxPl8oRlc4A8gq1kfkh";
             var symmetricKey = Encoding.UTF8.GetBytes(signingKey);
 
             return new SymmetricSecurityKey(symmetricKey);

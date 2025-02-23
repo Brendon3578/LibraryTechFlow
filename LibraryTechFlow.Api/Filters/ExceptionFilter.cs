@@ -9,23 +9,22 @@ namespace LibraryTechFlow.Api.Filters
     {
         public void OnException(ExceptionContext context)
         {
-            if (context.Exception is LibraryTechFlowException exception)
+            if (context.Exception is LibraryTechFlowException ex)
             {
-                context.HttpContext.Response.StatusCode = (int)exception.GetStatusCode();
+                context.HttpContext.Response.StatusCode = (int)ex.GetStatusCode();
 
-
-                context.Result = new ObjectResult(new RepsonseErrorMessagesJson()
+                context.Result = new ObjectResult(new ResponseErrorMessagesJson()
                 {
-                    Errors = exception.GetErrorMessages()
+                    Errors = ex.GetErrorMessages()
                 })
                 {
-                    StatusCode = (int)exception.GetStatusCode()
-                };
+                    StatusCode = (int)ex.GetStatusCode()
+                }; ;
             }
             else
             {
                 context.HttpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
-                context.Result = new ObjectResult(new RepsonseErrorMessagesJson()
+                context.Result = new ObjectResult(new ResponseErrorMessagesJson()
                 {
                     Errors = ["Unknown error!"]
                 });

@@ -18,7 +18,7 @@ namespace LibraryTechFlow.Api.Controllers
 
         [HttpPost]
         [ProducesResponseType(typeof(ResponseRegisteredUserJson), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(RepsonseErrorMessagesJson), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(ResponseErrorMessagesJson), StatusCodes.Status401Unauthorized)]
         public IActionResult Post(RequestLoginJson request)
         {
             var response = _doLoginUseCase.Execute(request);

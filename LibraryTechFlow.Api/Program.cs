@@ -11,7 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers(options =>
 {
-    options.Filters.Add(typeof(ExceptionFilter));
+    options.Filters.Add<ExceptionFilter>();
 });
 
 builder.Services.AddOpenApi();

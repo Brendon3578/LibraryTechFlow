@@ -19,7 +19,7 @@ namespace LibraryTechFlow.Api.Controllers
 
         [HttpPost]
         [ProducesResponseType(typeof(ResponseRegisteredUserJson), StatusCodes.Status201Created)]
-        [ProducesResponseType(typeof(RepsonseErrorMessagesJson), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ResponseErrorMessagesJson), StatusCodes.Status400BadRequest)]
         public IActionResult Register(RequestUserJson request)
         {
             var response = _registerUseCase.Execute(request);

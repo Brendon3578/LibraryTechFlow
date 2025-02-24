@@ -31,7 +31,7 @@ namespace LibraryTechFlow.Api.UseCases.Books.Filter
 
             var totalCount = 0;
 
-            if (!string.IsNullOrEmpty(request.Title))
+            if (string.IsNullOrEmpty(request.Title))
                 totalCount = query.Count();
             else
                 totalCount = _context.Books.Count(b => b.Title.Contains(request.Title));

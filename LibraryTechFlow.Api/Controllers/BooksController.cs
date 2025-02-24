@@ -9,7 +9,7 @@ namespace LibraryTechFlow.Api.Controllers
     public class BooksController : ControllerBase
     {
 
-        private FilterBookUseCase _filterBookUseCase;
+        private readonly FilterBookUseCase _filterBookUseCase;
 
         public BooksController(FilterBookUseCase filterBookUseCase)
         {

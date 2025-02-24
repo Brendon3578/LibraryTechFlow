@@ -125,4 +125,6 @@ A API estará disponível em `https://localhost:7097` ou conforme configurado, e
 
 ---
 
-Feito com ☕ por [Brendon Gomes](https://github.com/Brendon3578)
+<h3 align="center">
+    Feito com ☕ por <a href="https://github.com/Brendon3578"> Brendon Gomes</a>
+</h3>

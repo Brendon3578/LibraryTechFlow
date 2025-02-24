@@ -1,28 +1,27 @@
 ﻿using FluentValidation.Results;
-using LibraryTechFlow.Api.Domain.Entities;
 using LibraryTechFlow.Api.Infrastructure.DataAccess;
-using LibraryTechFlow.Api.Infrastructure.Security.Cryptography;
 using LibraryTechFlow.Api.Infrastructure.Security.Tokens.Access;
 using LibraryTechFlow.Communication.Requests;
 using LibraryTechFlow.Communication.Responses;
+using LibraryTechFlow.Domain.Entities;
 using LibraryTechFlow.Exception;
+using LibraryTechFlow.Security.Interfaces;
 
 namespace LibraryTechFlow.Api.UseCases.Users.Register
 {
     public class RegisterUserUseCase
     {
         private RegisterUserValidator _validator;
-        private BCryptAlgorithm _cryptography;
         private LibraryTechFlowDbContext _dbContext;
         private JwtTokenGenerator _tokenGenerator;
+        private readonly ICryptographyAlgorithm _cryptography;
 
-
-        public RegisterUserUseCase(RegisterUserValidator validator, BCryptAlgorithm cryptography, LibraryTechFlowDbContext dbContext, JwtTokenGenerator tokenGenerator)
+        public RegisterUserUseCase(RegisterUserValidator validator, LibraryTechFlowDbContext dbContext, JwtTokenGenerator tokenGenerator, ICryptographyAlgorithm cryptography)
         {
             _validator = validator;
-            _cryptography = cryptography;
             _dbContext = dbContext;
             _tokenGenerator = tokenGenerator;
+            _cryptography = cryptography;
         }
 
         public ResponseRegisteredUserJson Execute(RequestUserJson request)

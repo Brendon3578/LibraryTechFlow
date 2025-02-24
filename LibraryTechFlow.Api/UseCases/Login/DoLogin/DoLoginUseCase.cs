@@ -1,23 +1,23 @@
 ﻿using LibraryTechFlow.Api.Infrastructure.DataAccess;
-using LibraryTechFlow.Api.Infrastructure.Security.Cryptography;
 using LibraryTechFlow.Api.Infrastructure.Security.Tokens.Access;
 using LibraryTechFlow.Communication.Requests;
 using LibraryTechFlow.Communication.Responses;
 using LibraryTechFlow.Exception;
+using LibraryTechFlow.Security.Interfaces;
 
 namespace LibraryTechFlow.Api.UseCases.Login.DoLogin
 {
     public class DoLoginUseCase
     {
-        private LibraryTechFlowDbContext _context;
-        private BCryptAlgorithm _crpytography;
-        private JwtTokenGenerator _tokenGenerator;
+        private readonly LibraryTechFlowDbContext _context;
+        private readonly JwtTokenGenerator _tokenGenerator;
+        private readonly ICryptographyAlgorithm _cryptography;
 
-        public DoLoginUseCase(LibraryTechFlowDbContext context, BCryptAlgorithm crpytography, JwtTokenGenerator tokenGenerator)
+        public DoLoginUseCase(LibraryTechFlowDbContext context, JwtTokenGenerator tokenGenerator, ICryptographyAlgorithm cryptography)
         {
             _context = context;
-            _crpytography = crpytography;
             _tokenGenerator = tokenGenerator;
+            _cryptography = cryptography;
         }
 
         public ResponseRegisteredUserJson Execute(RequestLoginJson request)
@@ -25,7 +25,7 @@ namespace LibraryTechFlow.Api.UseCases.Login.DoLogin
             var entity = _context.Users.FirstOrDefault(x => x.Email == request.Email)
                 ?? throw new InvalidLoginException();
 
-            var isPasswordValid = _crpytography.Verify(request.Password, entity);
+            var isPasswordValid = _cryptography.Verify(request.Password, entity);
 
             if (!isPasswordValid)
                 throw new InvalidLoginException();

@@ -9,7 +9,7 @@ namespace LibraryTechFlow.Api.Controllers
     [ApiController]
     public class LoginController : ControllerBase
     {
-        private DoLoginUseCase _doLoginUseCase;
+        private readonly DoLoginUseCase _doLoginUseCase;
 
         public LoginController(DoLoginUseCase doLoginUseCase)
         {

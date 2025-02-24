@@ -1,4 +1,4 @@
-﻿namespace LibraryTechFlow.Api.Domain.Entities
+﻿namespace LibraryTechFlow.Domain.Entities
 {
     public class User
     {

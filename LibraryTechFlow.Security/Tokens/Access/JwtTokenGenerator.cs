@@ -1,18 +1,17 @@
-﻿using LibraryTechFlow.Api.Domain.Entities;
+﻿using LibraryTechFlow.Domain.Entities;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Text;
 
 namespace LibraryTechFlow.Api.Infrastructure.Security.Tokens.Access
 {
     public class JwtTokenGenerator
     {
-        private readonly IConfiguration _configuration;
+        private readonly SymmetricSecurityKey _securityKey;
 
-        public JwtTokenGenerator(IConfiguration configuration)
+        public JwtTokenGenerator(SymmetricSecurityKey securityKey)
         {
-            _configuration = configuration;
+            _securityKey = securityKey;
         }
 
         public string Generate(User user)
@@ -26,7 +25,7 @@ namespace LibraryTechFlow.Api.Infrastructure.Security.Tokens.Access
             {
                 Subject = new ClaimsIdentity(claims),
                 Expires = DateTime.UtcNow.AddHours(1),
-                SigningCredentials = new SigningCredentials(SecurityKey(), SecurityAlgorithms.HmacSha256Signature)
+                SigningCredentials = new SigningCredentials(_securityKey, SecurityAlgorithms.HmacSha256Signature)
 
             };
 
@@ -36,16 +35,6 @@ namespace LibraryTechFlow.Api.Infrastructure.Security.Tokens.Access
 
             return tokenHandler.WriteToken(securityToken);
 
-        }
-
-        private SymmetricSecurityKey SecurityKey()
-        {
-            var signingKey = _configuration["JwtSettings:Secret"]
-                ?? throw new ArgumentNullException("JwtSettings:Secret is not defined in appsettings.json");
-
-            var symmetricKey = Encoding.UTF8.GetBytes(signingKey);
-
-            return new SymmetricSecurityKey(symmetricKey);
         }
     }
 }

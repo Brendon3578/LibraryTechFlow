@@ -6,7 +6,7 @@ namespace LibraryTechFlow.Exception
     {
         private readonly IEnumerable<string> _errors;
 
-        public ErrorOnValidationException(IEnumerable<string> errorMessages)
+        public ErrorOnValidationException(IEnumerable<string> errorMessages) : base(string.Empty)
         {
             _errors = errorMessages;
         }

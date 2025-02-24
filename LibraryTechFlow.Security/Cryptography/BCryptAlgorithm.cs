@@ -1,8 +1,9 @@
-﻿using LibraryTechFlow.Api.Domain.Entities;
+﻿using LibraryTechFlow.Domain.Entities;
+using LibraryTechFlow.Security.Interfaces;
 
 namespace LibraryTechFlow.Api.Infrastructure.Security.Cryptography
 {
-    public class BCryptAlgorithm
+    public class BCryptAlgorithm : ICryptographyAlgorithm
     {
         public string HashPassword(string password) =>
             BCrypt.Net.BCrypt.HashPassword(password);
